@@ -232,7 +232,7 @@ namespace A4
             return int.Parse(A + B) > int.Parse(B + A) ? a : b;
         }
         public static string ProcessMaximizeSalary6(string inStr) =>
-            TestTools.Process(inStr, MaximizeSalary6);
+            TestTools.Process(inStr, (Func<long, long[] , string>)MaximizeSalary6);
 
     }
 }
