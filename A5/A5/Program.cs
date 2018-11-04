@@ -78,7 +78,7 @@ namespace A5
             
         }
         public static string ProcessBinarySearch1(string inStr) =>
-            TestTools.Process(inStr, BinarySearch1);
+            TestTools.Process(inStr, (Func<long[] , long[] , long[] >)BinarySearch1);
 
         /// <summary>
         /// 2
@@ -314,7 +314,7 @@ namespace A5
         }
         
         public static string ProcessOrganizingLottery5(string inStr) =>
-            TestTools.Process(inStr, OrganizingLottery5);
+            TestTools.Process(inStr, (Func<long[] , long[] , long[] ,long[]>)OrganizingLottery5);
 
         /// <summary>
         /// 6
