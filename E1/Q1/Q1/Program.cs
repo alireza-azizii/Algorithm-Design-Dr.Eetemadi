@@ -12,6 +12,7 @@ namespace Q1
 
         static void Main(string[] args)
         {
+            FastLM my = new FastLM(Load("../Q1Tests/TestData/ unigram_count_1w.txt"));
         }
 
         public static WordCount[] Load(string filePath)

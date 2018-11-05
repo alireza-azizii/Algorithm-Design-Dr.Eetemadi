@@ -16,7 +16,27 @@ namespace Q1
         public static string[] GetCandidates(string word)
         {
             List<string> candidates = new List<string>();
-            //TODO
+            for (int i = 0; i < word.Length+1; i++)
+            {
+                foreach (var item in Alphabet)
+                {
+                    var a = Insert(word, i, item);
+                    candidates.Add(a);
+                }
+                
+            }
+            for (int i = 0; i < word.Length; i++)
+            {
+                foreach (var item in Alphabet)
+                {
+                    candidates.Add(Substitute(word, i, item));
+                }
+
+            }
+            for (int i = 0; i < word.Length; i++)
+            {
+                candidates.Add(Delete(word, i));
+            }
             return candidates.ToArray();
         }
 
@@ -24,7 +44,21 @@ namespace Q1
         {
             char[] wordChars = word.ToCharArray();
             char[] newWord = new char[wordChars.Length+1];
-            //TODO
+
+            for (int i = 0 , j =0; i < newWord.Length;)
+            {
+                if(i == pos)
+                {
+                    newWord[i] = c;
+                    i++;
+                }
+                else
+                {
+                    newWord[i] = wordChars[j];
+                    i++;
+                    j++;
+                }
+            }
             return new string(newWord);
         }
 
@@ -32,7 +66,20 @@ namespace Q1
         {
             char[] wordChars = word.ToCharArray();
             char[] newWord = new char[wordChars.Length-1];
-            //TODO
+            for (int i = 0, j = 0; i < newWord.Length;)
+            {
+                if (j == pos)
+                {
+                    
+                    j++;
+                }
+                else
+                {
+                    newWord[i] = wordChars[j];
+                    i++;
+                    j++;
+                }
+            }
             return new string(newWord);
         }
 
@@ -40,7 +87,21 @@ namespace Q1
         {
             char[] wordChars = word.ToCharArray();
             char[] newWord = new char[wordChars.Length];
-            //TODO
+            for (int i = 0, j = 0; i < newWord.Length;)
+            {
+                if (i == pos)
+                {
+                    newWord[i] = c;
+                    i++;
+                    j++;
+                }
+                else
+                {
+                    newWord[i] = wordChars[j];
+                    i++;
+                    j++;
+                }
+            }
             return new string(newWord);
         }
 

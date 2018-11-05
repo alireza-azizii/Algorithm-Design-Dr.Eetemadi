@@ -20,6 +20,19 @@ namespace Q1
             List<WordCount> candidates = 
                 new List<WordCount>();
 
+            string[] a = CandidateGenerator.GetCandidates(misspelling);
+
+            
+
+            ulong  b = 0;
+            foreach (var item in a)
+            {
+                if(LanguageModel.GetCount(item, out b))
+                {
+                    candidates.Add(new WordCount(item , b));
+                }
+            }
+
             // TODO
 
             return candidates
@@ -34,7 +47,16 @@ namespace Q1
             List<WordCount> candidates =
                 new List<WordCount>();
 
+            string[] a = CandidateGenerator.GetCandidates(misspelling);
+
             // TODO
+            foreach (var item in LanguageModel.WordCounts)
+            {
+                if (a.Contains(item.Word))
+                {
+                    candidates.Add(item);
+                }
+            }
 
             return candidates
                     .OrderByDescending(x => x.Count)
