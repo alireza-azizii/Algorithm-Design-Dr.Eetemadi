@@ -18,18 +18,29 @@ namespace E2
             Random rnd = new Random(0);
 
             // Try one random value
-            nonce = (uint) rnd.Next(0, int.MaxValue);
 
-            // Copy nonce to the end of data
-            BitConverter.GetBytes(nonce).CopyTo(data, sizeof(uint));
+            byte[] doubleHash;
+            int zeroBytes = 0;
+            nonce = 20000000;
+            while (zeroBytes < difficultyLevel)
+            {
+                // Copy nonce to the end of data
+                BitConverter.GetBytes(nonce).CopyTo(data, sizeof(uint));
 
-            // Calculate Hash
-            byte[] doubleHash = Hasher.ComputeHash(Hasher.ComputeHash(data));
+                // Calculate Hash
 
-            // How many zero bytes does it have at the end?
-            int zeroBytes = CountEndingZeroBytes(
-                doubleHash,
-                difficultyLevel);
+                doubleHash = Hasher.ComputeHash(Hasher.ComputeHash(data));
+
+                // How many zero bytes does it have at the end?
+                zeroBytes = CountEndingZeroBytes(
+                    doubleHash,
+                    difficultyLevel);
+                nonce++;
+                if (nonce > uint.MaxValue)
+                    break;
+            }
+
+            
 
             // Return if the number of zero bytes is enough
             return zeroBytes >= difficultyLevel;

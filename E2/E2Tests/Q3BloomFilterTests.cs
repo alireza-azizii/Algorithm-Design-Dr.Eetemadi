@@ -14,7 +14,7 @@ namespace E2.Tests
         [TestMethod()]
         public void BloomFilterTest()
         {
-            Assert.Inconclusive("Not Implemented");
+            Assert.Inconclusive();
             // تعداد پسوردها - ثابت. عوض نکنید.
             int pwdCount = 1_000_000;
 

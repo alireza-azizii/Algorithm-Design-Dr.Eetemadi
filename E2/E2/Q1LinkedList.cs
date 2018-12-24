@@ -13,7 +13,7 @@ namespace E2
             public int Key;
             public Node Next = null;
             public Node Prev = null;
-            public override string ToString() => ToString(4);
+            public override string ToString() => ToString(10);
 
             public string ToString(int maxDepth)
             {
@@ -45,12 +45,36 @@ namespace E2
 
         public void Reverse()
         {
+            var it = this.Tail;
+            this.Head = it;
+            while (true)
+            {
+                var par = it.Next;
+                it.Next = it.Prev;
+                it.Prev = par;
+                if (it.Next == null)
+                    break;
+                it = it.Next;
+            }
+            this.Tail = it;
             // زحمت بکشید پیاده سازی کنید
             // اگر نیاز بود میتوانید متد اضافه کنید
         }
 
         public void DeepReverse()
         {
+            var it = this.Tail;
+            this.Head = it;
+            while (true)
+            {
+                var par = it.Next;
+                it.Next = it.Prev;
+                it.Prev = par;
+                if (it.Next == null)
+                    break;
+                it = it.Next;
+            }
+            this.Tail = it;
             // زحمت بکشید پیاده سازی کنید
             // اگر نیاز بود میتوانید متد اضافه کنید
         }

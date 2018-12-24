@@ -22,23 +22,107 @@ namespace E2
 
         public int TreeHeight()
         {
-            return 0;
+            Stack<List<int>> tree = new Stack<List<int>>();
+            tree.Push(this.Nodes[0]);
+            List<int> n;
+            int h = 0;
+            int height = int.MinValue;
+            while(tree.Count != 0)
+            {
+                
+                n = tree.Pop();
+
+                if(n.Count == 0)
+                {
+                    if (h > height)
+                        height = h;
+                    h--;
+                    continue;
+                }
+                else
+                {
+                    foreach (var item in n)
+                    {
+                        tree.Push(Nodes[item]);
+                    }
+                }
+                h++;
+
+            }
+            return height;
         }
 
         public int TreeHeightFromNode(int node)
         {
-            return 0;
+            Stack<int> tree = new Stack<int>();
+            bool[] check = new bool[Nodes.Length];
+            check.Select(x => x = false);
+            tree.Push(node);
+            check[node] = true;
+            int n;
+            int h = 0;
+            int height = int.MinValue;
+
+            int[] parents = new int[Nodes.Length];
+            for (int i = 0; i < parents.Length; i++)
+            {
+                parents[i] = -1;
+            }
+            for (int i = 0; i < Nodes.Length; i++)
+            {
+                for (int j = 0; j < Nodes.Length; j++)
+                {
+                    if(Nodes[j].Contains(i))
+                    {
+                        parents[i] = j;
+                        break;
+                    }
+                }
+            }
+            while (tree.Count != 0)
+            {
+
+                n = tree.Pop();
+                check[n] = true;
+                if (Nodes[n].Count == 0  &&  check[parents[n]])
+                {
+                    if (h > height)
+                        height = h;
+                    h--;
+                    continue;
+                }
+                else
+                {
+                    foreach (var item in Nodes[n])
+                    {
+                        if(!check[item])
+                            tree.Push(item);
+                    }
+                    if (  n != 0 && !check[parents[n]])
+                        tree.Push(parents[n]);
+                }
+                h++;
+            }
+            return height;
         }
 
         public int TreeDiameterN2()
         {
-            return 0;
+            int maximum = int.MinValue;
+            for (int i = 0; i < Nodes.Length; i++)
+            {
+                int h = this.TreeHeightFromNode(i);
+                if (h > maximum)
+                    maximum = h;
+            }
+            return maximum;
         }
 
         public int TreeDiameterN()
         {
             return 0;
         }
+        
 
         private static List<int>[] GenerateRandomTree(int size, int seed)
         {
