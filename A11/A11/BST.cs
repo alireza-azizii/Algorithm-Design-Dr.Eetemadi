@@ -85,14 +85,14 @@ namespace A11
         {
             if (Root == null)
                 return null;
+            Stack<Node> nodes = new Stack<Node>();
 
-            Queue<Node> nodes = new Queue<Node>();
-            nodes.Enqueue(this.Root);
+            nodes.Push(this.Root);
 
             while (nodes.Count > 0)
             {
 
-                var n = nodes.Dequeue();
+                var n = nodes.Pop();
 
                 if (n.Key == key)
                     return n;
@@ -101,13 +101,13 @@ namespace A11
                 {
                     if (n.Left == null)
                         return n;
-                    nodes.Enqueue(n.Left);
+                    nodes.Push(n.Left);
                 }
                 else
                 {
                     if (n.Right == null)
                         return n;
-                    nodes.Enqueue(n.Right);
+                    nodes.Push(n.Right);
                 }
             }
 
@@ -117,8 +117,8 @@ namespace A11
 
         public static BST ParseBST(IEnumerable<long> preOrderList)
         {
-            var root = ParseBST(ref preOrderList);
-            return new BST(root);
+            var Root = ParseBST(ref preOrderList);
+            return new BST(Root);
         }
 
         public static Node ParseBST(ref IEnumerable<long> preOrderList)
@@ -140,9 +140,9 @@ namespace A11
             return n;
         }
 
-        public BST(Node root = null)
+        public BST(Node Root = null)
         {
-            this.Root = root;
+            this.Root = Root;
         }
 
         public override string ToString()
@@ -167,43 +167,60 @@ namespace A11
 
         public virtual void Delete(Node n)
         {
-            Node p = Next(n);
-
-            n.Key = p.Key;
-
-            while (p.Right != null)
+            Node next = Next(n);
+            if (n == Root)
             {
-                p = p.Right;
-                p.Key = p.Right.Key;
+                n.Key = next.Key;
+                next.Parent.Left = next.Left;
             }
-            p = null;
+            else if (n.Right != null)
+            {
+                n.Key = next.Key;
+                n.Right.Parent.Key = next.Key;
+                if(n.Left != null )
+                {
+                    n.Left.Parent.Key = next.Key;
+                }
+                next.Parent.Right = next.Right;
+            }
+            else
+            {
+                if(next == null)
+                {
+                    n.Parent.Right = n.Left;
+                }
+                else
+                {
+                    n.Parent.Left = n.Left;
+                }
+            }
         }
         public virtual void Delete(long key) { }
 
         public Node Next(Node n)
         {
-            Queue<Node> nodes = new Queue<Node>();
+            Stack<Node> nodes = new Stack<Node>();
 
             if(n.Right != null)
             {
-                nodes.Enqueue(n.Right);
+                nodes.Push(n.Right);
                 while (nodes.Count > 0)
                 {
-                    var m = nodes.Dequeue();
+                    var m = nodes.Pop();
                     if(m.Left == null)
                         return m;
                     
                     else
-                        nodes.Enqueue(m.Left);
+                        nodes.Push(m.Left);
                     
                 }
             }
             else
             {
-                nodes.Enqueue(n);
+                nodes.Push(n);
                 while (nodes.Count > 0)
                 {
-                    var m = nodes.Dequeue();
+                    var m = nodes.Pop();
                     if (m.Key == this.Root.Key)
                         return null;
                     if (m.Key < m.Parent.Key)
@@ -211,14 +228,14 @@ namespace A11
                         return m.Parent;
 
                     else
-                        nodes.Enqueue(m.Parent);
+                        nodes.Push(m.Parent);
                 }
 
             }
 
             return null;
         }
-        public Node Next(long key) => null;
+        public Node Next(long key) => Next(Find(key));
 
         public IEnumerable<Node> RangeSearch(long x, long y)
         {

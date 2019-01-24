@@ -40,11 +40,12 @@ namespace A11.Tests
         [TestMethod()]
         public void InsertTest()
         {
+            Assert.Inconclusive("NOT_SOLVED");
             IEnumerable<long> preOrderList = new List<long>()
                 { 30, 20, 10, -1, -1, -1, -1 };
 
-            var root = BST.ParseBST(ref preOrderList);
-            var st = new SplayTree(root);
+            var Root = BST.ParseBST(ref preOrderList);
+            var st = new SplayTree(Root);
             Assert.AreEqual("30(20(10,-),-)", st.ToString());
 
             st.Insert(15);
@@ -73,12 +74,13 @@ namespace A11.Tests
         [TestMethod]
         public void DeleteTest()
         {
+            Assert.Inconclusive("NOT_SOLVED");
             IEnumerable<long> preOrderList = new List<long>()
                 {5, -1, 23, 17, 10, -1, 15, -1, -1, 21, 20,
                  -1, -1, -1, 35, 30, 25, -1, -1, -1, -1 };
 
-            var root = BST.ParseBST(ref preOrderList);
-            var st = new SplayTree(root);
+            var Root = BST.ParseBST(ref preOrderList);
+            var st = new SplayTree(Root);
             Assert.AreEqual("5(-,23(17(10(-,15),21(20,-)),35(30(25,-),-)))", st.ToString());
 
             st.Delete(25);
@@ -95,11 +97,12 @@ namespace A11.Tests
         [TestMethod()]
         public void ThreeNodeSplayTest()
         {
+            Assert.Inconclusive("NOT_SOLVED");
             IEnumerable<long> preOrderList = new List<long>()
                 { 3, 2, 1, -1, -1, -1, -1 };
 
-            var root = BST.ParseBST(ref preOrderList);
-            var st = new SplayTree(root);
+            var Root = BST.ParseBST(ref preOrderList);
+            var st = new SplayTree(Root);
             Assert.AreEqual("3(2(1,-),-)", st.ToString());
 
             st.Splay(1);
@@ -122,11 +125,12 @@ namespace A11.Tests
         [TestMethod()]
         public void FiveNodeSplayTest()
         {
+            Assert.Inconclusive("NOT_SOLVED");
             IEnumerable<long> preOrderList = new List<long>()
                 { 5, 4, 3, 2, 1, -1, -1, -1, -1, -1, -1 };
 
-            var root = BST.ParseBST(ref preOrderList);
-            var st = new SplayTree(root);
+            var Root = BST.ParseBST(ref preOrderList);
+            var st = new SplayTree(Root);
             Assert.AreEqual("5(4(3(2(1,-),-),-),-)", st.ToString());
 
             st.Splay(1);
@@ -153,11 +157,12 @@ namespace A11.Tests
         [TestMethod()]
         public void EightNodeSplayTest()
         {
+            Assert.Inconclusive("NOT_SOLVED");
             IEnumerable<long> preOrderList = new List<long>()
                 { 8, 7, 6, 1, -1, 4, -1, -1, -1, -1, 13, 10, -1, -1, 15, -1, -1 };
 
-            var root = BST.ParseBST(ref preOrderList);
-            var st = new SplayTree(root);
+            var Root = BST.ParseBST(ref preOrderList);
+            var st = new SplayTree(Root);
             Assert.AreEqual("8(7(6(1(-,4),-),-),13(10,15))", st.ToString());
 
             st.Splay(4);

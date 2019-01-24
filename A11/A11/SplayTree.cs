@@ -9,11 +9,36 @@ namespace A11
             :base(r)
         { }
 
-        public void Splay(long key) { }
+        public void Splay(long key) => this.Splay(new Node(key));
 
         public override Node Find(long key) => null;
 
-        public override void Insert(long key) { }
+        public override void Insert(long key)
+        {
+            if (this.Root == null)
+            {
+                this.Root = new Node(key);
+                return; 
+            }
+
+            this.Splay(key);
+
+            Node n = new Node(key); 
+
+            if(Root.Key>key)
+            {
+                n.Right = Root;
+                n.Left = Root.Left;
+                Root.Left = null;
+            }
+            else
+            {
+                n.Left = Root;
+                n.Right = Root.Right;
+                Root.Right = null;
+            }
+
+        }
 
         public override void Delete(long key) { }
         public override void Delete(Node n) { }
@@ -68,5 +93,7 @@ namespace A11
         private void ApplyZigZigLeft(Node q) { }
         private void ApplyZigZagLeft(Node n) { }
         private void ApplyZigZigRight(Node n) { }
+        private void SingleRotate(Node n){ }
+        private void DoubleRotate(Node n) { }
     }
 }
